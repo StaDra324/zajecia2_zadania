@@ -4,28 +4,17 @@
 text <- "And so even though we face the difficulties of today and tomorrow, I still have a dream."
 print(text)
 
-# Sprawdź częstości słów za pomocą pakietu qdap
-#install.packages("qdap")
 library(qdap)
 
 freq_terms(text)
 
-# Zapisz najczęściej występujące terminy w ramce danych
 frequent_terms <- freq_terms(text)
 print(frequent_terms)
 
-# Wizualizacja najczęściej występujących terminów
-plot(frequent_terms)
+#plot(frequent_terms)
 
-# UWAGA
-# Słowa nie są wymienione w takiej kolejności, w jakiej występują w zdaniu
-# są prezentowane w porządku alfabetycznym.
-# Takie podejście nazywa się Bag of Words (torba słów).
-
-# Inne możliwości pakietu qdap
 ?freq_terms
 
-# Wizualizacja za pomocą ggplot2
 library(ggplot2)
 
 p1 <- ggplot(frequent_terms, aes(x = WORD, y = FREQ)) +
@@ -34,18 +23,9 @@ p1 <- ggplot(frequent_terms, aes(x = WORD, y = FREQ)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   ggtitle("Wykres częstości słów")
 
-print(p1)
+#print(p1)
 
-p2 <- ggplot(frequent_terms, aes(y = WORD, x = FREQ)) +
-  geom_bar(stat = "identity", fill = "skyblue") +
-  labs(x = "Słowo", y = "Częstość") +
-  theme(axis.text.x = element_text(angle = 0, hjust = 1)) +
-  ggtitle("Wykres częstości słów")
-
-print(p2)
-
-# Bardziej atrakcyjna wizualizacja
-p3 <- ggplot(frequent_terms, aes(x = FREQ, y = reorder(WORD, FREQ))) +
+p2 <- ggplot(frequent_terms, aes(x = FREQ, y = reorder(WORD, FREQ))) +
   geom_bar(stat = "identity", fill = "skyblue", color = "darkblue", alpha = 0.8) +
   labs(x = "Częstość", y = "Słowo") +
   ggtitle("Wykres częstości słów") +
@@ -56,27 +36,22 @@ p3 <- ggplot(frequent_terms, aes(x = FREQ, y = reorder(WORD, FREQ))) +
         panel.grid.minor.y = element_blank(), # Usunięcie mniejszych linii siatki poziomej
         axis.line = element_line(color = "black")) # Dostosowanie linii osi
 
-print(p3)
-
-# Stopwords (stop słowa – słowa do usunięcia)
-# Najczęściej występujące 25, 100 i 200 słów
+#print(p2)
 
 Top25Words
 Top100Words
 Top200Words
 
-# Usunięcie stop słów
 frequent_terms2 <- freq_terms(text, stopwords = Top25Words)
+#print(frequent_terms2)
+
 frequent_terms3 <- freq_terms(text, stopwords = Top100Words)
 frequent_terms4 <- freq_terms(text, stopwords = Top200Words)
 
-plot(frequent_terms4)
+#plot(frequent_terms4)
 
-# Zadanie 2. Analiza całego akapitu ----
-
-# Wczytaj dane tekstowe
 text <- "And so even though we face the difficulties of today and tomorrow, I still have a dream. It is a dream deeply rooted in the American dream."
-print(text)
+text
 
 frequent_terms <- freq_terms(text)
 frequent_terms
